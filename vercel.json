@@ -9,11 +9,7 @@
       }
     }
   ],
-  "functions": {
-    "api/server.js": {
-      "runtime": "@vercel/node"
-    }
-  },
+  
   "routes": [
     {
       "src": "/api/(.*)",
