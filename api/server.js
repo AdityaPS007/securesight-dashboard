@@ -11,26 +11,41 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'https://localhost:3000',
+    // Add your Vercel domain here after deployment
+    process.env.NODE_ENV === 'production' ? process.env.VERCEL_URL : 'http://localhost:3000'
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
 // Load incidents data
 const loadIncidents = () => {
   try {
-    const data = fs.readFileSync(path.join(__dirname, 'data', 'incidents.json'));
+    const dataPath = path.join(__dirname, 'data', 'incidents.json');
+    const data = fs.readFileSync(dataPath, 'utf8');
     return JSON.parse(data);
   } catch (error) {
     console.error('Error loading incidents:', error);
-    return { cameras: [], incidents: [] };
+    // Return default data if file doesn't exist
+    return { 
+      cameras: [
+        { id: 'Camera-01', name: 'Shop Floor A', location: 'Main Entrance' },
+        { id: 'Camera-02', name: 'Shop Floor B', location: 'Vault Area' },
+        { id: 'Camera-03', name: 'Shop Floor C', location: 'Storage Room' }
+      ], 
+      incidents: [] 
+    };
   }
 };
 
 const saveIncidents = (data) => {
   try {
-    fs.writeFileSync(
-      path.join(__dirname, 'data', 'incidents.json'), 
-      JSON.stringify(data, null, 2)
-    );
+    const dataPath = path.join(__dirname, 'data', 'incidents.json');
+    fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
   } catch (error) {
     console.error('Error saving incidents:', error);
   }
@@ -86,7 +101,11 @@ app.get('/api/cameras', (req, res) => {
 
 // Health check
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'OK', timestamp: new Date().toISOString() });
+  res.json({ 
+    status: 'OK', 
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development'
+  });
 });
 
 // Error handling middleware
@@ -95,12 +114,18 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Internal server error' });
 });
 
-// 404 handler
-app.use('*', (req, res) => {
-  res.status(404).json({ error: 'Route not found' });
+// 404 handler for API routes
+app.use('/api/*', (req, res) => {
+  res.status(404).json({ error: 'API route not found' });
 });
 
-app.listen(PORT, () => {
-  console.log(`SecureSight API server running on port ${PORT}`);
-  console.log(`Health check: http://localhost:${PORT}/api/health`);
-});
+// For local development
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`SecureSight API server running on port ${PORT}`);
+    console.log(`Health check: http://localhost:${PORT}/api/health`);
+  });
+}
+
+// Export for Vercel
+export default app;
