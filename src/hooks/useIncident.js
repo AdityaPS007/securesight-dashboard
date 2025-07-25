@@ -1,31 +1,8 @@
-import { useState, useCallback, useEffect } from 'react';
-import { fetchIncidents, resolveIncident as apiResolveIncident } from '../config/api';
+import { useState, useCallback } from 'react';
 
 export const useIncidents = (initialIncidents) => {
   const [incidents, setIncidents] = useState(initialIncidents);
   const [selectedIncident, setSelectedIncident] = useState(initialIncidents[0]);
-  const [loading, setLoading] = useState(false);
-
-  // Load incidents from API on mount
-  useEffect(() => {
-    const loadIncidents = async () => {
-      try {
-        setLoading(true);
-        const apiIncidents = await fetchIncidents(false);
-        if (apiIncidents.length > 0) {
-          setIncidents(apiIncidents);
-          setSelectedIncident(apiIncidents[0]);
-        }
-      } catch (error) {
-        console.error('Failed to load incidents from API:', error);
-        // Fall back to initial incidents
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadIncidents();
-  }, []);
 
   const selectIncident = useCallback((incident) => {
     setSelectedIncident(incident);
@@ -33,13 +10,16 @@ export const useIncidents = (initialIncidents) => {
 
   const resolveIncident = useCallback(async (incidentId) => {
     try {
-      // Call the actual API
-      const updatedIncident = await apiResolveIncident(incidentId);
+      // In a real app, this would call the API: PATCH /api/incidents/:id/resolve
+      // const response = await fetch(`/api/incidents/${incidentId}/resolve`, {
+      //   method: 'PATCH',
+      //   headers: { 'Content-Type': 'application/json' }
+      // });
       
       setIncidents(prev => 
         prev.map(incident => 
           incident.id === incidentId 
-            ? { ...incident, resolved: updatedIncident.resolved }
+            ? { ...incident, resolved: true }
             : incident
         )
       );
@@ -51,22 +31,27 @@ export const useIncidents = (initialIncidents) => {
     }
   }, []);
 
-  const fetchIncidentsData = useCallback(async (resolved = false) => {
+  const fetchIncidents = useCallback(async (resolved = false) => {
     try {
-      const data = await fetchIncidents(resolved);
-      return data;
+      // In a real app, this would call: GET /api/incidents?resolved=false
+      // const response = await fetch(`/api/incidents?resolved=${resolved}`);
+      // const data = await response.json();
+      // setIncidents(data);
+      
+      // For now, just filter mock data
+      const filteredIncidents = initialIncidents.filter(i => i.resolved === resolved);
+      return filteredIncidents;
     } catch (error) {
       console.error('Failed to fetch incidents:', error);
       return [];
     }
-  }, []);
+  }, [initialIncidents]);
 
   return {
     incidents,
     selectedIncident,
     selectIncident,
     resolveIncident,
-    fetchIncidents: fetchIncidentsData,
-    loading
+    fetchIncidents
   };
 };
