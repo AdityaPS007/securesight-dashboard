@@ -1,0 +1,129 @@
+{
+  "cameras": [
+    {
+      "id": "Camera-01",
+      "name": "Shop Floor A",
+      "location": "Main Entrance"
+    },
+    {
+      "id": "Camera-02", 
+      "name": "Shop Floor B",
+      "location": "Vault Area"
+    },
+    {
+      "id": "Camera-03",
+      "name": "Shop Floor C", 
+      "location": "Storage Room"
+    }
+  ],
+  "incidents": [
+    {
+      "id": 1,
+      "cameraId": "Camera-01",
+      "type": "Unauthorised Access",
+      "tsStart": "2025-07-07T10:58:00Z",
+      "tsEnd": "2025-07-07T14:27:00Z",
+      "thumbnailUrl": "/api/placeholder/160/90",
+      "resolved": false
+    },
+    {
+      "id": 2,
+      "cameraId": "Camera-02",
+      "type": "Gun Threat", 
+      "tsStart": "2025-07-07T11:15:00Z",
+      "tsEnd": "2025-07-07T11:18:00Z",
+      "thumbnailUrl": "/api/placeholder/160/90",
+      "resolved": false
+    },
+    {
+      "id": 3,
+      "cameraId": "Camera-01",
+      "type": "Unauthorised Access",
+      "tsStart": "2025-07-07T09:30:00Z", 
+      "tsEnd": "2025-07-07T09:45:00Z",
+      "thumbnailUrl": "/api/placeholder/160/90",
+      "resolved": false
+    },
+    {
+      "id": 4,
+      "cameraId": "Camera-03",
+      "type": "Face Recognised",
+      "tsStart": "2025-07-07T08:22:00Z",
+      "tsEnd": "2025-07-07T08:25:00Z", 
+      "thumbnailUrl": "/api/placeholder/160/90",
+      "resolved": true
+    },
+    {
+      "id": 5,
+      "cameraId": "Camera-02",
+      "type": "Unauthorised Access",
+      "tsStart": "2025-07-07T15:10:00Z",
+      "tsEnd": "2025-07-07T15:22:00Z",
+      "thumbnailUrl": "/api/placeholder/160/90", 
+      "resolved": false
+    },
+    {
+      "id": 6,
+      "cameraId": "Camera-01",
+      "type": "Face Recognised",
+      "tsStart": "2025-07-07T16:45:00Z",
+      "tsEnd": "2025-07-07T16:47:00Z",
+      "thumbnailUrl": "/api/placeholder/160/90",
+      "resolved": false
+    },
+    {
+      "id": 7,
+      "cameraId": "Camera-03", 
+      "type": "Gun Threat",
+      "tsStart": "2025-07-07T12:33:00Z",
+      "tsEnd": "2025-07-07T12:38:00Z",
+      "thumbnailUrl": "/api/placeholder/160/90",
+      "resolved": false
+    },
+    {
+      "id": 8,
+      "cameraId": "Camera-02",
+      "type": "Unauthorised Access",
+      "tsStart": "2025-07-07T13:55:00Z",
+      "tsEnd": "2025-07-07T14:12:00Z", 
+      "thumbnailUrl": "/api/placeholder/160/90",
+      "resolved": false
+    },
+    {
+      "id": 9,
+      "cameraId": "Camera-01",
+      "type": "Face Recognised", 
+      "tsStart": "2025-07-07T07:18:00Z",
+      "tsEnd": "2025-07-07T07:20:00Z",
+      "thumbnailUrl": "/api/placeholder/160/90",
+      "resolved": true
+    },
+    {
+      "id": 10,
+      "cameraId": "Camera-03",
+      "type": "Unauthorised Access",
+      "tsStart": "2025-07-07T17:22:00Z",
+      "tsEnd": "2025-07-07T17:35:00Z",
+      "thumbnailUrl": "/api/placeholder/160/90", 
+      "resolved": false
+    },
+    {
+      "id": 11,
+      "cameraId": "Camera-02", 
+      "type": "Gun Threat",
+      "tsStart": "2025-07-07T14:44:00Z",
+      "tsEnd": "2025-07-07T14:47:00Z",
+      "thumbnailUrl": "/api/placeholder/160/90",
+      "resolved": false
+    },
+    {
+      "id": 12,
+      "cameraId": "Camera-01",
+      "type": "Face Recognised",
+      "tsStart": "2025-07-07T18:12:00Z", 
+      "tsEnd": "2025-07-07T18:15:00Z",
+      "thumbnailUrl": "/api/placeholder/160/90",
+      "resolved": true
+    }
+  ]
+}
